@@ -1,0 +1,2 @@
+g++ -o main main.cpp matriz.cpp `Magick++-config --cppflags --cxxflags --ldflags --libs`
+
