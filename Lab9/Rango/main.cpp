@@ -14,6 +14,6 @@ int main(){
   }
 
   arbolito.preOrder();
-  arbolito.borrarHojas();
+  arbolito.eliminarRango(20, 40);
   arbolito.preOrder();
 }

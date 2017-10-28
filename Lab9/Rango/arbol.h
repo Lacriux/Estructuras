@@ -170,6 +170,28 @@ class C_BinTree{
       }
     }
 
+    void eliminarRango(int min, int max, Node *aux, Node *aux2){
+      if(aux2->dato > min && aux2->dato < max){
+        if(aux2 = aux->left){
+          aux->left = NULL;
+          delete aux2;
+        }
+        else{
+          aux->right = NULL;
+          delete aux2;
+        }
+      }
+      else{
+        aux = aux2;
+        if(aux->left){
+          eliminarRango(min, max, aux, aux->left);
+        }
+        if(aux->right){
+          eliminarRango(min, max, aux, aux->right);
+        }
+      }
+    }
+
   public:
     C_BinTree(void){
       this->root = NULL;
@@ -247,6 +269,13 @@ class C_BinTree{
       Node* aux2 = this->root->left;
       borrarHojas(this->root, aux);
       borrarHojas(this->root, aux2);
+    }
+
+    void eliminarRango(int min, int max){
+      Node* aux = this->root->right;
+      Node* aux2 = this->root->left;
+      eliminarRango(min, max, this->root, aux);
+      eliminarRango(min, max, this->root, aux);
     }
 
 };
