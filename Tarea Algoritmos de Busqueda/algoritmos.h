@@ -60,6 +60,52 @@ vector<int> countingSort(vector<int> lista){
   return aux2;
 }
 
+vector<int> percolateDown(vector<int> lista, int pos, int tam){
+
+  int left = 2*pos+1;
+  int right = 2*pos+2;
+  if(left < tam){
+    if(lista[pos] < lista[left] && lista[left]!= -1){
+      int temp = lista[pos];
+      lista[pos] = lista[left];
+      lista[left] = temp;
+      if(left < tam){
+        percolateDown(lista, left, tam);
+      }
+    }
+  }
+  if(right < tam){
+    if(lista[pos] < lista[right] && lista[right] != -1){
+      int temp = lista[pos];
+      lista[pos] = lista[right];
+      lista[right] = temp;
+      if(right < tam){
+        percolateDown(lista, right, tam);
+      }
+    }
+  }
+
+  return lista;
+}
+
+vector<int> heapSort(vector<int>lista){
+  int n = lista.size();
+  int temp;
+  for (int i = n / 2 - 1; i >= 0; i--){
+    lista = percolateDown(lista, i, n);
+  }
+
+  for (int i=n-1; i>=0; i--){
+    temp = lista[0];
+    lista[0] = lista[i];
+    lista[i] = temp;
+
+    lista = percolateDown(lista, 0, i);
+  }
+
+  return lista;
+}
+
 vector<int> radixSort(vector<int> lista){
   vector<vector<int> > matriz;
   vector<int> listaAux;
@@ -87,5 +133,41 @@ vector<int> radixSort(vector<int> lista){
       matriz[i].clear();
     }
   }
+  return lista;
+}
+
+vector<int> quickSort(vector<int> lista, int left, int right) {
+  int i = left, j = right;
+  int tmp;
+  int pivot = lista[(left + right) / 2];
+
+  while (i <= j) {
+    while (lista[i] < pivot){
+      i++;
+    }
+    while (lista[j] > pivot){
+      j--;
+    }
+    if (i <= j) {
+      tmp = lista[i];
+      lista[i] = lista[j];
+      lista[j] = tmp;
+      i++;
+      j--;
+    }
+  };
+
+  if (left < j){
+    lista = quickSort(lista, left, j);
+  }
+  if (i < right){
+    lista = quickSort(lista, i, right);
+  }
+
+  return lista;
+}
+
+vector<int> quickSort(vector<int> lista){
+  lista = quickSort(lista, 0, lista.size()-1);
   return lista;
 }
