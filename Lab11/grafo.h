@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<queue>
+#include<utility>
 
 using namespace std;
 
@@ -38,6 +39,10 @@ class Grafo{
 
     void edge(int v1, int v2){
       matriz[v1][v2] = 1;
+    }
+
+    void edge(int v1, int v2, int weight){
+      matriz[v1][v2] = weight;
     }
 
     void DFS(void){
@@ -90,6 +95,42 @@ class Grafo{
               tabla[i][1] = tabla[n][1] + 1;
               tabla[i][2] = n;
               cola.push(i);
+            }
+          }
+        }
+      }
+      return tabla;
+    }
+
+    vector<vector<int> > shortWeightPath(int nodo){
+      vector<vector<int> > tabla;
+      tabla.resize(matriz.size());
+      for(int i = 0; i < matriz.size(); i++){
+        tabla[i].resize(3, -1);
+      }
+      for(int i = 0; i < matriz.size(); i++){
+        tabla[i][0] = i;
+      }
+
+      priority_queue<pair<int,int>, vector<pair<int,int> >, greater<pair<int,int> > > cola;
+      pair<int,int> par;
+      par = make_pair(0,nodo);
+      cola.push(par);
+      tabla[nodo][1] = 0;
+      while(!cola.empty()){
+        pair<int,int> aux = cola.top();
+        int n = aux.second;
+        cola.pop();
+        for(int i = 0; i < matriz.size(); i++){
+          if(matriz[n][i] != 0){
+            int distancia;
+            distancia = aux.first + matriz[n][i];
+            if(tabla[i][1] == -1 || tabla[i][1] > distancia){
+              tabla[i][1] = distancia;
+              tabla[i][2] = n;
+              par.first = distancia;
+              par.second = i;
+              cola.push(par);
             }
           }
         }
