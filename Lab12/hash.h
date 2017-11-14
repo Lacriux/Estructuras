@@ -24,33 +24,32 @@ class Hash{
         Node*aux = hash[i];
         while(aux){
           if(aux->next){
-            Node* aux2 = aux->next;
-            delete aux;
-            aux = aux2;
+            aux = aux->next;
           }
           else{
             delete aux;
+            aux = NULL;
           }
         }
         hash[i] = NULL;
       }
     }
     void hashInsert(int key){
+      Node*aux = new Node();
+      Node*aux2;
+      aux->key = key;
+      aux->next = NULL;
       int indice = 0;
       for(int i = 1; i <= 100000000; i *= 10){
         indice += (key/i)%10;
       }
+      aux2 = hash[indice];
       if(!hash[indice]){
-        Node*aux;
         aux->key = key;
         aux->next = NULL;
         hash[indice] = aux;
       }
       else{
-        Node*aux;
-        aux->key = key;
-        aux->next = NULL;
-        Node*aux2 = hash[indice];
         while(aux2->next){
           aux2 = aux2->next;
         }
@@ -60,10 +59,10 @@ class Hash{
     bool hashSearch(int key){
       int indice = 0;
       bool is = false;
-      for(int i = 1; i <= 100000000; i += 10){
+      for(int i = 1; i <= 100000000; i *= 10){
         indice += (key/i)%10;
       }
-      if(hash[indice]){
+      if(hash[indice]!=NULL){
         Node*aux=hash[indice];
         while(aux->next){
           if(aux->key = key){
@@ -79,7 +78,7 @@ class Hash{
     }
     void hashDelete(int key){
       int indice = 0;
-      for(int i = 1; i <= 100000000; i += 10){
+      for(int i = 1; i <= 100000000; i *= 10){
         indice += (key/i)%10;
       }
       if(hash[indice]){
@@ -104,8 +103,9 @@ class Hash{
         }
         else{
           if(aux->key=key){
-            delete aux;
             hash[indice] = NULL;
+            delete aux;
+
           }
         }
 

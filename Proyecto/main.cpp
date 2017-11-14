@@ -26,7 +26,7 @@ int main(){
       flag = false;
     }
 
-    usleep(500000);
+    usleep(300000);
   }
 
   snake.printScore();
