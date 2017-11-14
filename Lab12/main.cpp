@@ -13,7 +13,7 @@ int main(){
 
   Hash myHash;
 
-  cout<<"Se insertan 5 datos al hash"<<endl;
+  cout<<"Se insertan 6 datos al hash"<<endl;
   myHash.hashInsert(i);
   myHash.hashInsert(j);
   myHash.hashInsert(k);
@@ -40,6 +40,6 @@ int main(){
     cout<<"Si"<<endl;
   }
   else{
-    cout<<"No";
+    cout<<"No"<<endl;
   }
 }
