@@ -59,7 +59,7 @@ class Solid{
     vector<pair<int,int> > snaku; //Vector en el que se guardan las casillas que forman parte del cuerpo de la serpiente
     pair<int,int> prize; //Casilla objetivo que tiene que recoger la serpiente
     int score; //Puntuacion
-    bool live; //Booleano encargado de decir si la serpiente esta viva (No ha perdido)
+    bool alive; //Booleano encargado de decir si la serpiente esta viva (No ha perdido)
     Mat img; //Imagen que se utiliza como interfaz grafica
 
   private:
@@ -85,7 +85,7 @@ class Solid{
 
     //Funcion encargada de reconstruir la matriz despues de cada movimiento
     void constructGrid(void){
-      if(live){
+      if(alive){
         for(int i = 1; i < 17; i++){
           for(int j = 1; j < 31; j++){
             grid[i][j] = 0;
@@ -107,7 +107,7 @@ class Solid{
     Solid(void){
       img = Mat(18, 32, CV_8UC3, Scalar(0,0, 0));
       score = 0;
-      live = true;
+      alive = true;
       grid.resize(18);
       for(int i = 0; i < 18; i++){
         grid[i].resize(32,0);
@@ -156,7 +156,7 @@ class Solid{
         snaku.pop_back();
       }
       else if(grid[newPosition.first][newPosition.second] == 1){
-        live = false;
+        alive = false;
       }
       else if(grid[newPosition.first][newPosition.second] == 2){
         snaku.insert(snaku.begin(),1, newPosition);
@@ -164,7 +164,7 @@ class Solid{
         score++;
       }
       else if(grid[newPosition.first][newPosition.second] == 3){
-        live = false;
+        alive = false;
       }
       constructGrid();
     }
@@ -191,7 +191,7 @@ class Solid{
       Vec3b white(255,255,255);
       Vec3b blue(255,0,0);
 
-      if(live){
+      if(alive){
         for(int i = 0; i < grid.size(); i++){
           for(int j = 0; j < grid[i].size(); j++){
             if(grid[i][j] == 1 || grid[i][j] == 2){
@@ -212,8 +212,8 @@ class Solid{
     }
 
     //Funcion encargada de regresar si todavia no se ha perdido
-    bool isAlive(void){
-      return live;
+    bool isAalive(void){
+      return alive;
     }
 
     //Funcion encargada de imprimir la puntuacion final del jugador

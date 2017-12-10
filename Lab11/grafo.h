@@ -137,6 +137,5 @@ class Grafo{
       }
       return tabla;
     }
-
 };
 #endif
